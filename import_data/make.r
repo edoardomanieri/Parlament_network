@@ -55,10 +55,3 @@ meta = c(
 # build routine
 
 source("data.r")  # scrape bills and sponsors
-source("build.r") # assemble the networks
-source("comm.r")  # add committee co-membership
-
-save(list = ls(pattern = "^(co)?(net|edges|bills)_it_(ca|se)\\d{4}$"),
-     file = "data/net_it.rda")
-
-# have a nice day

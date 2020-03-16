@@ -441,6 +441,8 @@ if (!file.exists(bills)) {
     # filter out a few bills with no first author
     y = (b$n_a == 0)
     cat(sum(y), "with no first author\n\n")
+    
+    # added part
     n_r = nrow(b[ !x & !y, ])
     leg = rep(i, n_r)
     vect_f = rep(FALSE, n_r)

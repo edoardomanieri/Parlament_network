@@ -200,7 +200,7 @@ if (!file.exists(sponsors) || !file.exists(bills)) {
     y = (a$n_a == 0)
     cat(sum(y), "with no first author\n\n")
 
-    #b = rbind(b, a[ !x & !y, ])
+    # added part
     n_r = nrow(a[ !x & !y, ])
     leg = rep(j, n_r)
     vect_f = rep(FALSE, n_r)

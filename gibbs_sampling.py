@@ -6,7 +6,7 @@ from scipy.special import betaln
 # example inputs
 X = np.array([[1, 1, 0, 0], [1, 1, 1, 0], [0, 1, 1, 1], [0, 0, 1, 1]])  # adjacency matrix
 a, b, A = 1, 2, 10  # hyperparameters
-T = 1
+T = 10
 
 # initialization
 N = X.shape[0]  # number of nodes in the network
