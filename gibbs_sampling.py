@@ -6,7 +6,7 @@ from scipy.special import betaln
 # example inputs
 X = np.array([[1, 1, 0, 0], [1, 1, 1, 0], [0, 1, 1, 1], [0, 0, 1, 1]])  # adjacency matrix
 a, b, A = 1, 2, 10  # hyperparameters
-T = 10
+T = 1
 
 # initialization
 N = X.shape[0]  # number of nodes in the network
@@ -38,7 +38,6 @@ for t in range(T):
         rand_arr = np.random.rand() < np.cumsum(P)/sum(P)
         i = rand_arr.tolist().index(True)
         z[n, :] = 0
-
         try:
             z[n, i] = 1  # aggiungere se outofbounds
         except IndexError:
@@ -50,8 +49,3 @@ for t in range(T):
         empty_cluster = np.argwhere(np.sum(z, axis=0) == 0).squeeze()
         z = np.delete(z, empty_cluster, 1)
     Z.append(z)
-
-
-m = np.array([[1],[2]])
-np.tile(m, (1, 2))
-m = np.array([1,2])
