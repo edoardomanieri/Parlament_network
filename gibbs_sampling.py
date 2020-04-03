@@ -12,11 +12,11 @@ X = np.array([[1, 1, 0, 0], [1, 1, 1, 0], [0, 1, 1, 1], [0, 0, 1, 1]])          
 def irm(X, a=1, b=1, A=2,  T=100):
 
     # initialization
-    N = X.shape[0]                                                                          # number of nodes in the network
+    N = X.shape[0]
+    z = np.ones((N, 1))                                                                         # number of nodes in the network
     Z = []
 
     for _ in range(T):
-        z = np.ones((N, 1))                                                                 # (not in matlab impl) 
         for n in range(N):                                                                  # component of each node (at the beginning all nodes belong to the same component)
             nn = [x for x in range(N) if x != n]                                            # for first iteration (indices not considered)
             K = z.shape[1]                                                                  # number of components
@@ -47,7 +47,7 @@ def irm(X, a=1, b=1, A=2,  T=100):
 
             empty_cluster = np.argwhere(np.sum(z, axis=0) == 0).squeeze()                   # remove empty component
             z = np.delete(z, empty_cluster, 1)
-        Z.append(z)
+        Z.append(z.copy())
     return Z
 
 
