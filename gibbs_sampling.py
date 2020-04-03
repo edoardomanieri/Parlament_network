@@ -1,5 +1,8 @@
 import numpy as np
+import pandas as pd
 from scipy.special import betaln
+from operator import itemgetter
+from collections import defaultdict
 
 
 # example inputs
@@ -10,11 +13,11 @@ def irm(X, a=1, b=1, A=2,  T=100):
 
     # initialization
     N = X.shape[0]                                                                          # number of nodes in the network
-    z = np.ones((N, 1))                                                                     # component of each node (at the beginning all nodes belong to the same component)
     Z = []
 
     for _ in range(T):
-        for n in range(N):
+        z = np.ones((N, 1))                                                                 # (not in matlab impl) 
+        for n in range(N):                                                                  # component of each node (at the beginning all nodes belong to the same component)
             nn = [x for x in range(N) if x != n]                                            # for first iteration (indices not considered)
             K = z.shape[1]                                                                  # number of components
             m = sum(z[nn, :])[:, np.newaxis]                                                # number of nodes for each components
@@ -37,12 +40,10 @@ def irm(X, a=1, b=1, A=2,  T=100):
             rand_arr = np.random.rand() < np.cumsum(P)/P.sum()                              # Random component according to P
             i = rand_arr.tolist().index(True)
             z[n, :] = 0
-            try:
-                z[n, i] = 1  # aggiungere se outofbounds                                    # Update assignment
-            except IndexError:
-                new_arr = np.zeros((z.shape[0], i - z.shape[1] + 1))
-                z = np.concatenate((z, new_arr), axis=1)
-                z[n, i] = 1
+
+            new_arr = np.zeros((z.shape[0], 1))
+            z = np.concatenate((z, new_arr), axis=1)
+            z[n, i] = 1
 
             empty_cluster = np.argwhere(np.sum(z, axis=0) == 0).squeeze()                   # remove empty component
             z = np.delete(z, empty_cluster, 1)
@@ -50,4 +51,17 @@ def irm(X, a=1, b=1, A=2,  T=100):
     return Z
 
 
-irm(X=X, T=50)
+def get_partitions(Z):
+    res = defaultdict(int)
+    for z in Z:
+        df = pd.DataFrame(data=np.argwhere(z), columns=['node', 'group'])
+        df = df.groupby('group')['node'].apply(tuple)
+        tmp = tuple(sorted(df.values.tolist(), key=itemgetter(0)))
+        res[tmp] += 1
+    res = {k: v for k, v in sorted(res.items(), key=lambda item: item[1], reverse=True)}
+    return res
+
+
+if __name__ == "__main__":
+    Z = irm(X=X, T=50)
+    print(get_partitions(Z))

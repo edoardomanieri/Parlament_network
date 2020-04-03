@@ -1,6 +1,6 @@
 # PARLIAMENT NETWORK
 
-Thesis project that aims to uncover latent alliances among politicians. 
+Thesis project that aims to uncover latent alliances among politicians.
 
 # Structure of the project
 
