@@ -3,18 +3,17 @@ import pandas as pd
 from scipy.special import betaln
 from operator import itemgetter
 from collections import defaultdict
+from itertools import islice
 
 
-# example inputs
-X = np.array([[1, 1, 0, 0], [1, 1, 1, 0], [0, 1, 1, 1], [0, 0, 1, 1]])                      # adjacency matrix
-
-
-def irm(X, a=1, b=1, A=2,  T=100):
+def irm(X, a=1, b=1, A=10,  T=100):
 
     # initialization
     N = X.shape[0]
-    z = np.ones((N, 1))                                                                         # number of nodes in the network
+    z = np.ones((N, 1))                                                                     # number of nodes in the network
     Z = []
+    np.fill_diagonal(X, 0)
+    eps = 1e-200
 
     for _ in range(T):
         for n in range(N):                                                                  # component of each node (at the beginning all nodes belong to the same component)
@@ -30,10 +29,10 @@ def irm(X, a=1, b=1, A=2,  T=100):
             M0 = m@m.T - np.diag((m*(m+1)).ravel() / 2) - M1                                # number of no-links between components
             r = z[nn, :].T@X[nn, n][:, np.newaxis]                                          # number of links from node n(0)
             R = np.tile(r, (1, K))
-            beta_old_comps = betaln(M1+R+a, M0+M-R+b)-betaln(M1+a, M0+b)                    # one column for each component
-            np.fill_diagonal(beta_old_comps, 0)                                             # not in Matlab implementation
+            beta_old_comps = betaln(M1+R+a, M0+M-R+b)-betaln(M1+a, M0+b)
             beta_new_comp = betaln(r+a, m-r+b)-betaln(a, b)                                 # new component's values
             likelihood_change = sum(np.concatenate((beta_old_comps, beta_new_comp), axis=1), 0)
+            m[m == 0] = eps
             prior_change = np.log(np.append(m, A))
             logP = likelihood_change + prior_change                                         # Log prob of n belonging to existing or new component
             P = np.exp(logP-logP.max())                                                     # Convert from log probability
@@ -51,7 +50,9 @@ def irm(X, a=1, b=1, A=2,  T=100):
     return Z
 
 
-def get_partitions(Z):
+def get_partitions(Z, burn_in_factor=2):
+    burn_in = int(len(Z) - (len(Z)/burn_in_factor))
+    Z = Z[burn_in:]
     res = defaultdict(int)
     for z in Z:
         df = pd.DataFrame(data=np.argwhere(z), columns=['node', 'group'])
@@ -63,5 +64,10 @@ def get_partitions(Z):
 
 
 if __name__ == "__main__":
-    Z = irm(X=X, T=50)
-    print(get_partitions(Z))
+
+    # example inputs
+    X = np.array([[1, 1, 0, 0], [1, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1]])                      # adjacency matrix
+    Z = irm(X=X, A=1, T=50)
+    partitions = get_partitions(Z, burn_in_factor=1)
+    first_ten = list(islice(partitions.items(), 10))
+    print(first_ten)
