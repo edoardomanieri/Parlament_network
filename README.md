@@ -1,6 +1,6 @@
 # PARLIAMENT NETWORK
 
-Thesis project that aims to uncover latent alliances among politicians.
+Thesis project that aims to uncover latent alliances among italian politicians.
 
 # Structure of the project
 
@@ -9,6 +9,16 @@ Thesis project that aims to uncover latent alliances among politicians.
 3. Use the Infinite Relational Model to model the parliament network.
 4. Implement Gibbs Sampling to obtain the distribution of the clusters inside the parliament.
 5. ...
+
+# Walking through gibbs sampling Python code
+
+### Matrices involved in counting number of links between components
+1. `z[nn, :].T@X_nn_nn` : matrix components-nodes with number of links
+2. `z[nn, :].T@X_nn_nn@z[nn, :]` : matrix components-components with number of links (double count of some links ex: [A->B B->A])
+
+### Matrices involved in counting number of no-links between components
+3. `m@m.T` : matrix components-components with total number of possible links among components
+4. `np.diag((m*(m+1)).ravel() / 2)` : matrix to remove from the count links of nodes with themselves (ex. [A->A])
 
 # References
 
