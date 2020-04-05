@@ -17,8 +17,8 @@ Thesis project that aims to uncover latent alliances among italian politicians.
 2. `z[nn, :].T@X_nn_nn@z[nn, :]` : matrix components-components with number of links (double count of some links ex: [A->B B->A])
 
 ### Matrices involved in counting number of no-links between components
-3. `m@m.T` : matrix components-components with total number of possible links among components
-4. `np.diag((m*(m+1)).ravel() / 2)` : matrix to remove from the count links of nodes with themselves (ex. [A->A])
+1. `m@m.T` : matrix components-components with total number of possible links among components
+2. `np.diag((m*(m+1)).ravel() / 2)` : matrix to remove from the count links of nodes with themselves (ex. [A->A])
 
 # References
 
