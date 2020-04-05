@@ -43,7 +43,7 @@ def build_output(data_desc, model, params, partitions_dict):
     dt = datetime.now().strftime("%m-%d-%Y,%H:%M:%S")
     directory = f"./output/{data_desc[1]}/{data_desc[2]}/{dt}"
     Path(directory).mkdir(parents=True, exist_ok=True)
-    report_file = open(directory + "/report", "w+")
+    report_file = open(f"{directory}/report", "w+")
     report_file.write(f"data description: {data_desc[0]} - ")
     report_file.write(f"{data_desc[1]} - {data_desc[2]}\n")
     report_file.write(f"model: {model}\n")

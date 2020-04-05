@@ -1,14 +1,21 @@
 # PARLIAMENT NETWORK
 
-Thesis project that aims to uncover latent alliances among italian politicians.
+Thesis project that aims to uncover latent networks among italian politicians.
 
-# Structure of the project
+# Project description
 
-1. Gather data of sponsorships among politicians of the italian parliament by modifying R scripts [Briatte, 2016]. 
-2. Obtain the adjacency matrices for each legislation and build a network model.
-3. Use the Infinite Relational Model to model the parliament network.
-4. Implement Gibbs Sampling to obtain the distribution of the clusters inside the parliament.
-5. ...
+-  Gather data of sponsorships among politicians of the italian parliament [Briatte, 2016]. 
+-  Obtain the adjacency matrices for each legislation.
+-  Use the Infinite Relational Model to model the parliament network.
+-  Implement Gibbs Sampling to obtain the distribution of the clusters inside the parliament.
+
+# Project structure
+
+- *irm.py* : file containing different models used to implement Gibbs Sampling for the Infinite Relational Model. 
+- *network.py*: main execution of the model
+- *preprocessing.py*: preprocessing of the parliament csv data
+- *import_data*: folder containing the modified R scripts used to gather data
+- *gibbs_sampling_matlab.m*: paper implementation of Gibbs Sampling in Matlab
 
 # Walking through gibbs sampling Python code
 
