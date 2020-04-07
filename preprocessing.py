@@ -24,7 +24,7 @@ adjacency_matrices = []
 for leg in df_bills['legislature'].unique():
     df_leg = df_bills.loc[df_bills['legislature'] == leg, ['voters', 'law']]
     adj = np.zeros((len(df_leg['voters'].unique()), len(df_leg['voters'].unique())))
-    adj = np.fill_diagonal(adj, 1)
+    np.fill_diagonal(adj, 1)
     df = pd.DataFrame(data=adj, index=df_leg['voters'].unique(), columns=df_leg['voters'].unique())
     dfg = df_leg.groupby('law')['voters'].apply(list).reset_index(name='new')
     for el in dfg['new']:
@@ -44,3 +44,9 @@ df_sponsors = pd.read_csv('data/sponsors-ca.csv')
 # preprocessing
 id_pos = df_sponsors['url'].str.rfind('/')[0] + 1
 df_sponsors['id'] = df_sponsors['url'].str[id_pos:]
+
+# creating df for number of parties for each legislature
+number_of_parties = [(leg, len(df_sponsors.loc[df_sponsors['legislature']==leg, 'party'].unique())) for leg in 
+                     df_sponsors['legislature'].unique()]
+df_parties = pd.DataFrame(data=number_of_parties, columns=['legislature', 'number_of_parties'])
+df_parties.to_csv(f"./data/output/parties_number.csv")
