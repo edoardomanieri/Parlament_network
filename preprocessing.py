@@ -3,7 +3,7 @@ import numpy as np
 from itertools import combinations
 
 ### bills
-df_bills = pd.read_csv('data/bills-ca.csv')
+df_bills = pd.read_csv('../data/bills-ca.csv')
 
 # preprocessing
 df_bills['cosponsors'] = df_bills['cosponsors'].str.split(';')
@@ -35,11 +35,11 @@ for leg in df_bills['legislature'].unique():
 
 # save adjacency matrix
 for i, leg in enumerate(df_bills['legislature'].unique()):
-    adjacency_matrices[i].to_csv(f"./data/output/adjmat_leg{leg}.csv")
+    adjacency_matrices[i].to_csv(f"../data/output/adjmat_leg{leg}.csv")
 
 
 ### sponsors
-df_sponsors = pd.read_csv('data/sponsors-ca.csv')
+df_sponsors = pd.read_csv('../data/sponsors-ca.csv')
 
 # preprocessing
 id_pos = df_sponsors['url'].str.rfind('/')[0] + 1
@@ -49,4 +49,4 @@ df_sponsors['id'] = df_sponsors['url'].str[id_pos:]
 number_of_parties = [(leg, len(df_sponsors.loc[df_sponsors['legislature']==leg, 'party'].unique())) for leg in 
                      df_sponsors['legislature'].unique()]
 df_parties = pd.DataFrame(data=number_of_parties, columns=['legislature', 'number_of_parties'])
-df_parties.to_csv(f"./data/output/parties_number.csv")
+df_parties.to_csv(f"../data/output/parties_number.csv")

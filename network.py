@@ -26,10 +26,10 @@ def main(a_beta, b_beta, theta, gibbs_sweeps, leg):
     if leg > 17 or leg < 9:
         print("Leg number not valid\n")
         return
-    adj = pd.read_csv(f"./data/output/adjmat_leg{leg}.csv").drop(columns=['Unnamed: 0'])
+    adj = pd.read_csv(f"../data/output/adjmat_leg{leg}.csv").drop(columns=['Unnamed: 0'])
     data_desc = ['Italian parliament', 'camera', f'{leg}leg']
     X = adj.values
-    df_parties = pd.read_csv(f"./data/output/parties_number.csv")
+    df_parties = pd.read_csv(f"../data/output/parties_number.csv")
     print("read csv files\n")
     if theta == 0:
         n_parties = df_parties.loc[df_parties['legislature'] == leg, 'number_of_parties'].values[0]
