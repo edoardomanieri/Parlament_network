@@ -21,7 +21,10 @@ import time
 @click.option('--leg',
               default=9,
               help='legislature number', type=int)
-def main(a_beta, b_beta, theta, gibbs_sweeps, leg):
+@click.option('--burn_in',
+              default=1,
+              help='burn in factor', type=int)              
+def main(a_beta, b_beta, theta, gibbs_sweeps, leg, burn_in):
     start_time = time.time()
     if leg > 17 or leg < 9:
         print("Leg number not valid\n")
@@ -45,7 +48,7 @@ def main(a_beta, b_beta, theta, gibbs_sweeps, leg):
     }
     Z = beta_bernoulli(X=X, **params)
     print("computed Z matrices\n")
-    co_clust_matrix, avg_n_clusters = co_clustering_matrix(Z, burn_in_factor=1)
+    co_clust_matrix, avg_n_clusters = co_clustering_matrix(Z, burn_in_factor=burn_in)
     print("computed co-clutering matrix\n")
     print(f"average number of clusters {avg_n_clusters}\n")
     labels = point_estimate(co_clust_matrix, avg_n_clusters)
