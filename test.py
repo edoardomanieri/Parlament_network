@@ -4,6 +4,7 @@ from irm import beta_bernoulli, crp_parameter
 from network import get_partitions, co_clustering_matrix
 from itertools import islice
 
+
 if __name__ == "__main__":
 
     # example inputs
