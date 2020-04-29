@@ -1,7 +1,6 @@
 import click
 import numpy as np
 import pandas as pd
-from irm import beta_bernoulli, crp_parameter
 from itertools import islice
 from pathlib import Path
 from datetime import datetime
