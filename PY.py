@@ -39,8 +39,8 @@ def newtons_method(f, df, theta0, n, p, e, max_iter):
 
 
 def crp_parameters(n_politicians, n_parties, max_iter):
-    e = 1e-10
-    max_iter = 100000
+    e = 1e-9
+    max_iter = 200000
     theta0 = 1
     n = n_politicians
     p = n_parties

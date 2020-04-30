@@ -88,4 +88,5 @@ def beta_bernoulli_PY(X, a=1, b=1, theta=6, alpha=0.5,  T=100):
             empty_cluster = np.argwhere(np.sum(z, axis=0) == 0).squeeze()                   # remove empty components
             z = np.delete(z, empty_cluster, 1)
         Z.append(z.copy())
+        print(f"sampling: {_}")
     return Z
