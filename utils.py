@@ -129,7 +129,7 @@ def build_output(data_desc, model, params, co_clustering_matrix, avg_n_clusters,
     for key, value in params.items():
         report_file.write(f"\t {key}: {value}\n")
     report_file.write(f"average number of clusters: {avg_n_clusters}\n")
-    report_file.write(f"time required: {diff_time/60:.2f}\n")
+    report_file.write(f"time required: {diff_time/60:.2f} minutes\n")
     report_file.close()
     df = pd.DataFrame(data=co_clustering_matrix)
     df.to_csv(f"{directory}/co_clust.csv")

@@ -88,10 +88,11 @@ def main(process, a_beta, b_beta, theta, alpha, gibbs_sweeps, leg, burn_in):
     adj = pd.read_csv(f"../data/output/adjmat_leg{leg}.csv", index_col=0)
     data_desc = ['Italian parliament', 'camera', f'{leg}leg']
     X = adj.values
-    df_parties = pd.read_csv(f"../data/output/parties_number.csv")
+    df_parties = pd.read_csv(f"../data/output/parties_number.csv", index_col=0)
     n_parties = df_parties.loc[df_parties['legislature'] == leg, 'number_of_parties'].values[0]
+    print(f"number of parties: {n_parties}\n")
     n_politicians = len(adj)
-    print("gathered data\n")
+    print(f"number of politicians: {n_politicians}\n")
     print("run model...\n")
     if process == 'DP':
         DP_model(X, n_politicians, n_parties, data_desc, a_beta, b_beta, theta, gibbs_sweeps, burn_in)

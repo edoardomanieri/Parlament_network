@@ -3,20 +3,12 @@ import random
 from math import exp
 
 
-def truef(theta, alpha, n, p):
-    return ((gamma(theta + n + alpha)*gamma(theta + 1)) / (alpha * gamma(theta + n) * gamma(theta + alpha))) - (theta/alpha) - p
-
-
 def f(theta, alpha, n, p):
-    return exp(gammaln(theta + n + alpha) - gammaln(theta + n))*exp(gammaln(theta + 1) - gammaln(theta + alpha))* (1 / alpha) - (theta/alpha) - p
-
-
-def truedf(theta, alpha, n):
-    return (gamma(theta + n + alpha) * gamma(theta + 1) * (digamma(theta + n + alpha) + digamma(theta + 1) - digamma(theta + n) - digamma(theta + alpha))) / (alpha * gamma(theta + n) * gamma(theta + alpha)) - 1 / alpha
+    return exp(gammaln(theta + n + alpha) - gammaln(theta + n))*exp(gammaln(theta + 1) - gammaln(theta + alpha)) * (1 / alpha) - (theta/alpha) - p
 
 
 def df(theta, alpha, n):
-    return exp(gammaln(theta + n + alpha) - gammaln(theta + n)) * exp(gammaln(theta + 1) - gammaln(theta + alpha)) * (digamma(theta + n + alpha) + digamma(theta + 1) - digamma(theta + n) - digamma(theta + alpha)) / alpha - (1 / alpha)
+    return exp(gammaln(theta + n + alpha) - gammaln(theta + n)) * exp(gammaln(theta + 1) - gammaln(theta + alpha)) * ((digamma(theta + n + alpha) + digamma(theta + 1) - digamma(theta + n) - digamma(theta + alpha)) / alpha) - (1 / alpha)
 
 
 def dx(f, theta, alpha, n, p):
