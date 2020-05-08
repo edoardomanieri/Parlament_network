@@ -22,7 +22,7 @@ Thesis project that aims to uncover latent networks among italian politicians.
 Parameters:
 
 - Beta: alpha = 1, beta = 1 => uniform distribution in (0,1)
-- CRP: parameter theta chosen such that the expected value is equal to the number of parties. (Used newton's method)
+- CRP: parameter chosen in such a way that the expected value of the number of tables is equal to the number of parties. (Used newton's method)
 
 # Point estimate
 
