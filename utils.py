@@ -74,9 +74,13 @@ def co_clustering_matrix(Z, burn_in_factor=2):
                 np_idx2 = np_idx[1, :]
                 res[np_idx1, np_idx2] += 1
     avg_n_clusters = int(round(avg_n_clusters / len(Z)))
+    # relative frequency
     res /= len(Z)
+    # symmetric matrix
     res += res.T
-    np.fill_diagonal(res, 1)
+    # transform proximity matrix in distance matrix
+    res = 1 - res
+    np.fill_diagonal(res, 0)
     return res, avg_n_clusters
 
 
