@@ -8,7 +8,8 @@ from itertools import islice
 if __name__ == "__main__":
 
     # example inputs
-    X = np.array([[1, 1, 0, 0], [1, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1]])                      # adjacency matrix
+    # adjacency matrix
+    X = np.array([[1, 1, 0, 0], [1, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1]])
     Z = beta_bernoulli(X=X, A=1, T=5)
     partitions = get_partitions(Z, burn_in_factor=1)
     first_ten = dict(islice(partitions.items(), 5))
