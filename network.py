@@ -41,8 +41,11 @@ def DP_model(X, n_politicians, n_parties, data_desc, a_beta, b_beta,
 
 def PY_model(X, n_politicians, n_parties, data_desc, a_beta, b_beta, theta, alpha, gibbs_sweeps, burn_in):
     start_time = time.time()
-    if theta == 0:
-        theta, alpha = PY.crp_parameters(n_politicians, n_parties, 10000)
+    try:
+        if theta == 0:
+            theta, alpha = PY.crp_parameters(n_politicians, n_parties, 10000)
+    except ValueError as e:
+        return
     print("Got CRP parameters\n")
     model = "PY-Beta-Bernoulli"
     params = {

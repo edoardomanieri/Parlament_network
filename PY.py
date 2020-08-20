@@ -32,7 +32,7 @@ def newtons_method(f, df, theta0, n, p, e, max_iter):
             i += 1
             j += 1
     if i >= max_iter:
-        print("reached max_iter, consider increasing, not good estimate")
+        raise ValueError("reached max_iter, consider increasing")
     return theta0, alpha, f(theta0, alpha, n, p)
 
 
@@ -83,12 +83,13 @@ def beta_bernoulli_irm(X, a=1, b=1, theta=6, alpha=0.5,  T=100):
             beta_new_comp = betaln(r+a, m-r+b)-betaln(a, b)
             likelihood_change = sum(np.concatenate((beta_old_comps,
                                     beta_new_comp), axis=1), 0)
-            # used to avoid log(0)
-            m[m == 0] = eps
+
 
             # PY and DP difference
-            prior_change_existing_partition = np.exp(gammaln(m - alpha + 1) - gammaln(m - alpha))
-            prior_change_new_partition = alpha*np.exp(gammaln(theta / (alpha + K + 1)) - gammaln(theta / (alpha + K)))
+            prior_change_existing_partition = m - alpha
+            # used to avoid log(<0)
+            prior_change_existing_partition[prior_change_existing_partition < 0] = eps
+            prior_change_new_partition = theta + (alpha*K)
             prior_change = np.log(np.append(prior_change_existing_partition, prior_change_new_partition))
             # Log prob of n belonging to existing or new component
             logP = likelihood_change + prior_change
