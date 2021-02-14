@@ -1,6 +1,6 @@
 # PARLIAMENT NETWORK
 
-Thesis project that aims to uncover latent networks among italian politicians.
+Thesis project that aims to uncover latent networks among italian politicians. Full work available [here](https://drive.google.com/file/d/1326HoAlHliZe9fzh-2ByHp4MuEGFcYVe/view?usp=sharing).
 
 # Project description
 
